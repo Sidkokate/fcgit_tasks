@@ -123,3 +123,59 @@ git config --global user.name Sidkokate
 git config --global user.email shridharkokate817@gamil.com
 git remote add origin main https://github.com/Sidkokate/fcgit_tasks.git
 git remote add origin -m https://github.com/Sidkokate/fcgit_tasks.git
+lds
+ls
+git remote add origin https://github.com/Sidkokate/fcgit_tasks.git
+ git pull origin main
+ls
+ git add .
+cd tasks/TestRepo/
+ls
+cd
+ls -R
+ls -a
+ git commit -am "final commit"
+ git push origin main
+ git pull origin main
+ git push origin main
+ git remote -v
+git push origin main
+git push --help
+git pull --rebase
+git push -u origin main
+git reset --mixed origin/main
+git add .
+git rm .
+git -r rm .
+git pull main
+git pull origin main
+git add 3tire
+git commit -m "This is a new commit for what I originally planned to be amended"
+git push origin main
+ls -aR
+git reset .
+git log
+git revert d54e6b3218bfec3a3260a415d57a5490989f94f1
+git log
+git revert --no-commit d54e6b3218bfec3a3260a415d57a5490989f94f1HEAD
+git revert --no-commit d54e6b3218bfec3a3260a415d57a5490989f94f1 HEAD
+git log
+git clean -i
+git log
+git remote -v
+git reset
+git add 3tire
+git commit -m "initial commit"
+git restore .
+git add 3tire
+git commit -m "first commmit"
+git commit -am "first commit"
+ git commit -am "first commit"
+git pull origin main
+git restore  tasks/TestRepo
+ git commit -am "first commit"
+git revert <commit-hash>
+git push origin master
+git push origin main
+git push origin master
+exit
