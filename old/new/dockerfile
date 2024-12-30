@@ -1,5 +1,0 @@
-FROM nginx
-COPY cos.sh /usr/local/bin/cos.sh
-RUN chmod +x /usr/local/bin/cos.sh
-EXPOSE 80
-ENTRYPOINT ["/bin/bash","-c","/usr/local/bin/cos.sh && nginx -g 'daemon off;'"]
