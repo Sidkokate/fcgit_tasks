@@ -1,0 +1,911 @@
+
+module 3 :
+availability  zone (asia pasific)--> regions (mumbai) --> 
+
+
+
+
+sqs , sns 
+* Edge locations 
+
+cdn : content delivery networks
+
+aws outpost : where AWS will basically install a fully operational mini Region, right inside your own data center. That's owned and operated by AWS, 
+using 100% of AWS functionality, but isolated within your own building. It's not a solution most customers need, but if you have specific problems that can only be solved by staying in your own building,
+ we understand, AWS Outposts can help. 
+
+An edge location is a site that Amazon CloudFront uses to store cached copies of your content closer to your customers for faster delivery.
+
+1. Regions are geographically isolated areas, where you can access services needed to run your enterprise
+
+2. Regions contain Availability Zones, that allow you to run across physically separated buildings, tens of miles of separation, while keeping your application logically unified
+
+3.Availability Zones help you solve high availability and disaster recovery scenarios, without any additional effort on your part
+
+4. AWS Edge locations run Amazon CloudFront to help get content closer to your customers, no matter where they are in the world.
+
+
+* api : application programming interface
+ 
+interact with aws services
+
+1. aws management console : its browser-based
+2. aws cli :  CLI allows you to make API calls using the terminal on your machine. (used to automet process )
+3. sdk  (AWS Software Development Kits ) : The SDKs allow you to interact with AWS resources through various programming languages. 
+4. AWS Elastic Beanstalk : you can write some commands, or you can write some programs to do it.
+5. AWS CloudFormation : AWS CloudFormation is an infrastructure as code tool that allows you to define a wide variety of AWS resources in a declarative way using JSON or YAML text-based documents called CloudFormation templates
+
+
+module 4
+(vpc) Virtual Private Cloud : logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define
+
+internet getway: public access to vpc
+vpn : allow privet connection over internet
+aws direct connect : our datacenter to vpc dirct connect
+network access control list or NACL : stateless This check is to see if the packet has permissions to either leave or enter the subnet based on who it was sent from and how it's trying to communicate. 
+security group : ec2 level permitions ( statful )
+
+(dns) Route 53 :  dns service of aws
+
+module 5 
+
+data storasges 
+ Amazon Elastic Block Store, or EBS : they aren't tied directly to the host that you're EC2 is running on. This means, that the data that you write to an EBS volume can persist between stops and starts of an EC2 instance.
+ EBS allows you to take incremental backups of your data called snapshots
+
+In object storage, each object consists of data, metadata, and a key.
+
+s3 : it's a data store that allows you to store and retrieve a virtually unlimited amount of data at any scale
+The maximum object size that you can upload is 5 terabytes
+s3 classes 
+1. S3 Standard : 99.999999999 11 nines of durability,
+ multiple copies reside across locations.
+static website hosting
+
+2. S3 Standard-Infrequent:It’s used for data that is accessed less frequently but requires rapid access when needed
+3. S3 Glacier Flexible Retrieval :  write once, read many or WORM
+4. S3 One Zone-Infrequent Access:
+5. S3 Glacier Instant Retrieval:
+6. S3 Glacier Deep Archive
+
+lifecycle policies : 
+policies you can create that can move data automatically between tiers. For example, say we need to keep an object in S3 Standard for 90 days,
+ and then we want to move it to S3 Standard-IA for the next 30 days. Then after 120 days total, we want to move it to S3 Glacier Flexible Retrieval.
+
+ebs vs s3 
+
+ebs
+sizes up to 16 tebibytes
+survive the termination of their Amazon EC2 instances
+solid state hdd optional 
+ making a bunch of micro edits, using EBS, elastic block storage, is the perfect use case
+not posibale by s3 you must re-upload the entire file to make any changes in it
+To attach an Amazon EC2 instance to an EBS volume, both the Amazon EC2 instance and the EBS volume must reside within the same Availability Zone. 
+
+s3 
+web enabaleld 
+serverless 
+regional object storage
+unlimited storage
+one obj is up to 5TB/ 5,000 gigabytes in size
+they are 99 .999 999 999% durable
+
+efs:
+It's extremely common for businesses to have shared file systems across their applications
+Amazon EFS can have multiple instances reading and writing from it at the same time
+regional resource
+ automatically scales and practically unlimited storage 
+ EFS can only be mounted and accessed by devices that support the Network File System (NFS) protocol 
+
+Amazon Relational Database Service :  automated patching, backups, redundancy, failover, disaster recovery
+( vs point of dynamodb ) Being able to build complex analysis of data spread across multiple tables, is the strength of any relational system  
+
+ Amazon Aurora : managed relational database from aws offers
+1 .MySQL and PostgreSQL. And is priced is 1/10th the cost of commercial grade databases. 
+2.  six copies at any given time. You can also deploy up to 15 read replicas, so you can offload your reads and scale performance.
+3.continuous backups to S3
+
+Amazon DynamoDB : It's a serverless database DynamoDB is a non-relational database
+With key-value pairs, data is organized into items (keys), and items have attributes (values). You can think of attributes as being different features of your data.
+write queries based on a small subset of attributes that are designated as keys.
+( vs point of rds ) DynamoDB allows you to build powerful, incredibly fast databases where you don't need complex joint functionality
+DynamoDB stores this data redundantly across availability zones and mirrors the data across multiple drives under the hood for you. This makes the burden of operating a highly available database, much lower.
+massively scalable and also highly performant
+
+Amazon Redshift : data warehousing as a service. 10x higher perffomance than treishnal data bases
+
+ * Amazon Database Migration Service dms: You essentially migrate data between a source and a target database
+homogenous maigrations : oracale -to-> amazon oracal
+ heterogeneous migrations : target databases are of different types, we use scema conversion tool to convert the source schema and code to match that of the target database
+adv feechure of dms development and test database migrations, database consolidation, and even continuous database replication. 
+ 
+addd***************************************************************************
+Amazon DocumentDB: Great for content management, catalogs, user profiles. 
+Amazon Neptune: a graph database, engineered for social networking and recommendation engines, also great for fraud detection needs. 
+Amazon QLDB, or Quantum Ledger Database.
+Amazon Managed Blockchain
+Amazon ElastiCache can provide those caching layers without your team needing to worry about the heavy lifting of launching, uplift, and maintenance. And it comes in both Memcached and Redis flavors. 
+
+
+AWS Shared Responsibility Model : 
+aws respo : hypervisor
+Physical security of data centers
+Hardware and software infrastructure
+Network infrastructure
+Virtualization infrastructure
+
+customer respo : OS , APPLICATION ,data
+
+* AWS Identity and Access Management, or IAM : IAM user, by default, it has no permissions. The user can't even log into the AWS account at first, it has absolutely zero permissions
+An IAM policy is a JSON document that describes what API calls a user can or cannot make.
+roles : Roles have associated permissions that allow or deny specific actions. And these roles can be assumed for temporary amounts of time. It is similar to a user, but has no username and password
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+AWS Organizations
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+AWS Artifact
+
+Depending on your company’s industry, you may need to uphold specific standards. An audit or inspection will ensure that the company has met those standards.
+
+AWS Artifact: is a service that provides on-demand access to AWS security and compliance reports and select online agreements. AWS Artifact consists of two main sections: AWS Artifact Agreements and AWS Artifact Reports.
+
+AWS complies with a long list of assurance programs that you can find online. This means that segments of your compliance have already been completed, and you can focus on meeting compliance within your own architectures that you build on top of AWS
+
+*DDoS, the distributed denial-of-service.:
+ It's an attack on your enterprise's infrastructure, and you've heard of it.
+The objective of a DDoS attack is to shut down your application's ability to function by overwhelming the system to the point it can no longer operate. 
+
+
+1. the low level network attacks like the UDP floods.
+_---> Solution, security groups 
+
+2. Slowloris attacks?
+----> Look at our elastic load balancer
+
+3.AWS Shield --->ddos
+
+DynamoDB's encryption at rest also integrates with AWS KMS, or Key Management Service
+we want to connect it with a SQL client. We use secure sockets layer, or SSL connections to encrypt data
+
+Amazon GuardDuty. It analyzes continuous streams of metadata generated from your account, and network activity found on AWS CloudTrail events, Amazon VPC Flow Logs, and DNS logs
+
+AWS WAF
+
+AWS WAF(opens in a new tab) is a web application firewall that lets you monitor network requests that come into your web applications. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+in Module 6, you learned about the following concepts:
+
+The shared responsibility model
+Features of AWS Identity and Access Management
+Methods of managing multiple accounts in AWS Organizations
+AWS compliance resources
+AWS services for application security and encryption
+
+module 7 cloudwatch
+
+CloudWatch allows you to monitor your AWS infrastructure and the applications you run on AWS in real time. It works by tracking and monitoring metrics
+
+Amazon CloudWatch(opens in a new tab) :
+is a web service that enables you to monitor and manage various metrics and configure alarm actions based on data from those metrics.
+
+AWS CloudTrail(opens in a new tab):
+ records API calls for your account. The recorded information includes the identity of the API caller, 
+the time of the API call, the source IP address of the API caller, and more.
+ You can think of CloudTrail as a “trail” of breadcrumbs (or a log of actions) that someone has left behind them.
+
+Recall that you can use API calls to provision, manage, and configure your AWS resources. With CloudTrail, you can view a complete history of user activity and API calls for your applications and resources. 
+
+ AWS Trusted Advisor:
+The pillars are cost optimization, performance, security, fault tolerance, and service limits.
+
+module 8 :
+Consolidated billing
+
+In an earlier module, you learned about AWS Organizations, a service that enables you to manage multiple AWS accounts from a central location. AWS Organizations also provides the option for consolidated billing.
+
+AWS Budgets:
+
+In AWS Budgets(opens in a new tab), you can create budgets to plan your service usage, service costs, and instance reservations.
+
+The information in AWS Budgets updates three times a day. This helps you to accurately determine how close your usage is to your budgeted amounts or to the AWS Free Tier limits.
+
+In AWS Budgets, you can also set custom alerts when your usage exceeds (or is forecasted to exceed) the budgeted amount.
+
+AWS Cost Explorer
+
+AWS Cost Explorer(opens in a new tab) is a tool that lets you visualize, understand, and manage your AWS costs and usage over time.
+
+AWS Cost Explorer includes a default report of the costs and usage for your top five cost-accruing AWS services. You can apply custom filters and groups to analyze your data. For example, you can view resource usage at the hourly level.
+
+**************************************************************************************************
+container is isolated  and seprated it desnt affect each other it 
+why devops need uses folder namespace technology 
+cpu we calculate in time given
+1 .overcome virtualisation == monolithic architecture 100% downtime when 1 model fail
+containerisation == microsevices 
+2. version mismatch MySQL php file
+
+****consideration tools : docker ,redhat openshift containerd ,aws ecs
+
+
+resion>avalablitiy zone>datacente>host>ec2
+hyperviser is software which divide host into diff part 
+
+
+jira : task assigning tool -->  docker hub/git : coding hub --> Jenkins : build and give code to testing ifsucsess --> 
+(scummaster do work as junkins)
+
+kubernatives : autoscaling for docker eg lunch remove update container 
+
+container have priviate ip and public ip is ip of ec2
+13- 11 docker lecture
+
+sudo yum install docker 
+sudo systemctl start docker
+docker start
+sudo docker pull nginx
+docker images
+sudo docker run -d nginx
+sudo docker ps -a
+
+docker run -d -it
+sudo docker run -d -p80:80 nginx
+
+docker exec -it containerid /bin/bash
+docker exec -it 5f2529a9a68e /bin/bash
+cd /usr/share/html/
+apt install nano
+sudo nano index.html
+curl http://localhost
+docker stop contnrtid
+docker rm containerid
+
+14 -11 docker 
+ docker run -d -p80:80 --name myweb nginx : run container on port 80 with name myweb
+#####		first 80 port of ec2 second 80 port of container
+docker container ls -a : show all running container
+ docker container ls -a
+docker stop conainerid
+docker stop $(docker ps -q) : stop all container 
+docker rm $(docker ps -aq) : remove all container  expect running
+
+docker run -d httpd  :  pull create and start combine
+docker logs containerid
+docker inpect containerid : container info
+ docker commit ngcon myngimage create image from container
+
+15-11
+
+docker login -u shridhar07
+passward : pass of website tokan
+
+
+docker tag myweb shridhar07/repository:newname  : rename docker image
+docker push shridhar07/repository:newname 
+docker pull shridhar07/repository:newname 
+
+docker save -o webtar.tar myngimage   : make tar file from image 
+ docker load -i webtar.tar
+
+ aws configure
+   58  aws s3 ls
+   59  aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 014498621866.dkr.ecr.ap-south-1.amazonaws.com
+   60  docker tag myngimage 014498621866.dkr.ecr.ap-south-1.amazonaws.com/sidrip:latest
+   61  docker push 014498621866.dkr.ecr.ap-south-1.amazonaws.com/sidrip:latest
+
+docker run -d -e MYSQL_ROOT_PASSWORD=Sid@24 MySQL  : MySQL container
+   63  docker run -d -e MYSQL_ROOT_PASSWORD=Sid@24 MySQL
+   64  docker ps
+   65  mysql -u -p
+   66  mysql -u root -p
+   67  docker exec -it /bin/bash
+   68  docker exec -it 003e8880b268 /bin/bash
+
+
+
+
+18- 11 docker
+
+
+docker rmi $(docker images -q) -f
+
+mkdir mybac
+docker run -d --name mazisql -v /home/ec2-user/mybac/:/var/lib/MySQL -e
+MYSQL_ROOTPAWWWARD='Sid@24' mysql
+
+docker exec -d -it MySQLname /bin/bash
+
+create db fcbook , create table posts with id name , insert record 
+
+
+*** docker volumes 
+1. host path : var/lib/docker/volumes/  
+docker volume create volume ourvol
+docker run -d -v mysql:var/lib/sql - e ---||--- mysql
+
+
+2.named volume , 
+3.anonumous volumes
+
+19 -11
+docker volume create myvol
+docker volume ls
+docker volume inspect myvol
+docker volume rm myvol 
+
+docker volume prune : remove unused volumes
+
+docker run -d -v /home/ec2-user/wpbackup/:/var/lib/SQL -e MYSQL_ROOT_PASSWORD=Sid@24 -e MYSQL_DATABASE=wordpressdb --name wpsql mysql
+
+
+docker run -d -p80:80 -e WORDPRESS_DB_HOST=wpsql -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_NAME=wordpressdb -e WORDPRESS_DB_PASSWORD=Sid@24 --link wpsql:mysql --name mywordpress wordpress
+
+docker run -d -p90:80 -e WORDPRESS_DB_HOST=wpsql -e WORDPRESS_DB_PASSWORD=Sid@24 -e WORDPRESS_DB_NAME=wordpressdb -e WORDPRESS_DB_USER=root --link wpsql:mysql --name wpcon wordpress
+
+////now crete your website 
+
+//docker images from dockerfile 
+ec2-user/mynginx/dockerfile
+
+name :dockerfile 
+FROM ubuntu    : image name
+RUN apt update -y
+RUN apt install nginx -y
+RUN cd /var/www/html/
+RUN touch myindex.html
+RUN echo "hii" >myindex.html
+COPS
+CMD ["nginx","-g","demon off;"]
+ENV 
+
+docker build .    or docker build -f mydocfile .  	 or docker build -t mydocimage:1.0 .  		: for build image
+
+docker exec -it containername  /bin/bash
+
+**************************************************************************************************************************************
+21 -11 nov python app in docker
+
+defult python port  --5000
+
+
+pythonappdockerfile 
+
+FROM python:3.9-slim
+WORKDIR /app
+copy req.txt /app/
+RUN pip install -r req.txt
+COPY  . .
+EXPOSE 5000
+CMD ["python","app.py"]
+
+
+
+ngdockerfile
+FROM nginx
+COPY default.conf /etc/nginx/conf.d/
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
+
+edit defult.conf file and add proxy path to it for redirecting request to python container
+
+
+docker network create mynet
+docker build -t newngimage -f ngdockerfile .
+ docker run -d -p80:80 --network mynet --name ng newngimage
+
+22 -11 docker
+
+docker network create mynet
+ docker inspect bridge
+docker network connect mynet mycon
+docker network disconnect mynet mycon  : dissconct network
+docker network rm  mynet  : to remove network 
+
+25-11 docker compose
+
+dockerfile 
+FROM MySQL
+ENV MYSQL_ROOT_PASSWORD=Sid@24
+ENV MYSQL_DATABASE=fcbook
+EXPOSE 3306
+CMD ["mysqld"]
+
+26 -11
+entripoint for exucutabale fiel 
+cmd for 
+
+
+dockerfilemysql
+FROM mysql
+ENV MYSQL_ROOT_PASSWORD=Sid@24
+ENV MYSQL_DATABASE=fcbook
+COPY init.sql /docker-entrypoint-initdb.d/
+COPY init.sh /docker-entrypoint-initdb.d/
+EXPOSE 3306
+CMD ["mysqld"]
+
+
+init.sql
+use fcbook;
+create table user (id int ,name varchar(30));
+insert into user values(1,shri),(2,ravi);
+
+
+docker build .
+docker build --buil-arg Password=Sid@24 -t argsql .
+docker exec -it docname /bin/bash
+
+
+
+FROM 
+RUN
+WORKDIR
+CMD
+ENDPOINT
+ARG
+COPY
+ENV
+EXPOSE
+LABEL
+ADD  ----SAME AS COPY BUT WE CAN GIVE URL ORR ZIP FILE ALSO
+ONBUILD
+HEALTHCHECK
+USER
+
+
+27 -11 docker day12
+
+FROM node as build 
+WORKDIR /usr/src/app
+COPY package.json .
+copy  . .
+RUN npm run build
+
+
+from build 
+copy --from build /usr/src/app/  ./dist
+expose 3000
+run npm install
+CMD ["node","./dist/index.js"]
+
+
+Dockercomposefile
+to download docker-compose : (curl -SL https://github.com/docker/compose/releases/download/v2.30.3/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose)
+to give execute permition to com file : chmod +x /usr/local/bin/docker-compose
+docker compose -v   : check version 
+execute composefile 
+docker-compose -f compose.yml up
+
+
+
+ngdockerfile
+FROM nginx
+COPY default.conf /etc/nginx/conf.d/
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
+
+edit defult.conf file and add proxy path to it for redirecting request to python container
+
+
+docker network create mynet
+docker build -t newngimage -f ngdockerfile .
+ docker run -d -p80:80 --network mynet --name ng newngimage
+
+
+
+28 -11 docker compose
+
+Docker run -d -p80:80 -v /home/ec2-user/mynode :/usr/share/nginx/html nginx
+
+29 -11 cd  /var/lib/docker/
+
+
+If you get erorr 
+failed to register layer: write /usr/src/wordpress/wp-includes/js/dist/block-editor.js: no space left on device
+
+Try: answer
+docker rm $(docker ps -a -q) 
+docker rmi $(docker images -q)
+ docker volume rm $(docker volume ls |awk '{print $2}') 
+rm -rf ~/Library/Containers/com.docker.docker/Data/*
+
+From <https://stackoverflow.com/questions/41227546/how-can-i-fix-no-space-left-on-device-error-in-docker>
+ 
+
+dec 5 
+ECS  : elastic container service 
+easy ui and  
+addon load balancing ,automation automation 
+
+
+
+
+6 dc
+docker volume create portainer
+
+docker run -d -p8000:8000 --name porcont -v /var/run/docker.sock:/var/run/docker.sock -v portainervol:/data portainer/portainer-ce:latest
+
+
+
+terraform must watch on youtube
+
+***************************************************************************************************
+kubernets from 18-12 
+
+show existing namepace : kubectl get namespaces
+kubectl get pods --namespace kube-system
+kubectl create namespace sidnamespace
+kubectl describe namespace sidnamespace
+to make current namespace to default : kubectl config set -context --current --namespace sidnamespace 
+
+
+kubectl delete all --all --force
+my.yml
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name : 
+
+spac:
+   conttainers:
+     -name: contname
+     path: 
+     image: nginx
+   
+
+
+siryamlvolume.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: mydeployment
+spec:
+  replicas: 3
+  strategy:
+     type: RollingUpdate
+     rollingUpdate:
+          maxSurge: 2
+          maxUnavailable: 0
+  selector:
+    matchLabels:
+      env: dev
+  template:
+       metadata:
+          labels:
+              env: dev
+       spec:
+            containers:
+                 - name: nginxcontaine
+                   image: nginx
+                   ports:
+                     - containerPort: 80
+                   volumeMounts:
+                     - mountPath: "/usr/share/nginx/html"
+                       name: myvolume
+            containers:
+                 - name: anothernginxcontaine
+                   image: nginx
+                   ports:
+                     - containerPort: 90
+                   volumeMounts:
+                     - mountPath: "/usr/share/nginx/html"
+                       name: myvolume
+            volumes:
+              -name: myvol
+               emptyDir: {} 
+
+
+
+for host path :
+volumes:
+              -name: myvol
+               hostPath:
+                   parh: /
+
+
+volumes :
+1.emptyDir : volume inside pod to share data between containers
+
+2.hostpath: volume inside workernode to share data between containers
+
+3. nfs: volume inside workernode mounted to efs(file system) to share data between containers
+
+4:persistent volume & persistent volume claim (pv & pvc ): 
+
+23-12
+5.configmap: it is a key value pair file if we want to change in multipale constrents at one time it is in master node
+mysql.yml
+apiVersion: v1
+kind: pod
+metadata:
+  name: mysqlpod
+spec:
+  containers:
+     - name: mysqlcon
+       image: mysql:8.0
+       env:
+         - name: MYSQL_ROOT_PASSWORD
+           valueFrom:
+              configMapKeyRef:          #for seret secretKeyref:
+                    name: mysql-conf
+                    key: mysql-pass
+
+
+
+nginx.yml
+apiVersion: v1
+kind : pod
+metadata: 
+ name: ngpod
+spec:
+  containers:
+    - name: ngcont
+      image: nginx
+      volumeMounts:
+            - name: ngconfvol
+             mountPath: /etc/nginx/conf.d/default.conf
+             subPath: default.conf
+  volumes:
+    - name: ngconfvol
+      configMap:
+          name: nginx-conf
+
+
+
+
+to create configmap form key name :kubectl create configmap mysql-config --from literal mysql-pass=Sid@24 
+kubectl get configmap
+
+kubectl create configmap nginx-conf --from-file default.conf
+
+
+6.secrets: 
+
+(1) genric: to store passwords    kubectl create secret generic mysecret --from-litrel mysql-pass=Sid@25
+to see yaml file fo secret key : kubectl get secret mysecret -o yaml
+(2) docker-config : user and password of docker config
+kube create secret docker -registry mydockerreg 
+docker-username:          docker-password=
+docker-server=            docker email=
+
+in yml
+under spec
+imagePullsecret:
+  -name: mydockerreg
+
+(3) tls :
+
+
+24-12
+### persistent volume & persistent volume claim (pv & pvc ):
+pv has accsess mode 1.readonlymany 2. readwriteone 3. readwritemany 
+
+
+mkdir pervol
+nano pvnginx.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvpod
+spec:
+   capacity:
+     storage: 1Gi
+   accessModes:
+      - ReadWriteOnce
+   persistentVolunmeReclaimPolicy: Retain
+   hostPath:
+      path: /mydata
+
+pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvcpod
+spec:
+   resources:
+      requests:
+        storage: 1Gi
+   accessModes:
+      - ReadWriteOnce
+******************************************************************************************************
+demon.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+    name: daemonwala
+    labels:
+       app: promi
+spec:
+   selector:
+       matchLabels:
+        app: promi
+   template:
+     metadata:
+         labels:
+            app: promi
+     spec:
+       containers:
+         - name: daemonwala
+           image: influxdb
+           ports:
+             - containerPort: 80
+
+******************************************************************************************************
+jobwala.yml
+apiVresion: batch/v1
+kind: Job
+metadata:
+  name: jobpod
+spec:
+  template:
+    metadata:
+       labels:
+          app: hello
+    spec:
+      containers: 
+         - name: hello
+           image: busybox
+           command:["echo","hello,k8s"]
+      restartPolicy: Never
+  backoffLimit: 4 
+
+
+ cd pvvol/
+nano pvcwala.yml
+nano pvnginx.yml
+kubectl apply -f pvwala.yml
+kubectl apply -f pvcwala.yml
+kubectl get pv
+kubectl apply -f pvnginx.yml
+kubectl apply -f configmap.yml
+kubectl exec -it mysqlpod -- /bin/bash
+cd pvvol/
+nano demon.yml
+kubectl apply -f demon.yml
+
+
+26 -12 
+cronwala.yml
+apiVresion: batch/v1
+kind: cronJob
+metadata:
+  name: newjobpod
+spec:
+  schedule: "*/5* * * *"
+  template:
+    metadata:
+       labels:
+          app: hello
+    spec:
+      containers: 
+         - name: newhello
+           image: busybox
+           command:["echo","hello,k8s"]
+      restartPolicy: Never
+
+
+mkdir stateful
+apiversion: apps/v1
+kind; StatefulSet
+metadata:
+  name: dbstate
+spec:
+  replica: 3
+  selector:
+      matchlabels:
+         app :mydb 
+  serviceName: "dbservice"
+  template:
+     metadata:
+       labels:
+         app: db
+     spec:
+        containers:
+           - name: MySQLcont
+             image: MySQL
+             env:
+             - name: MYSQL_ROOT_PASSWORD
+               valueFrom:
+                 configMapKeyRef:          #for seret secretKeyref:
+                    name: mysql-conf
+                    key: mysql-pass 
+             ports:
+               - containerPort: 3306
+ volumeClaimTemplates:
+          - metadata:
+                 name: dbb
+            spec:
+              accessModes: ["ReadWriteOnce"]
+              Resources:
+                 request:
+                    storage: 1Gi
+
+
+kubectl apply -f pvwala.yml
+kubectl apply -f stateful.yml
+
+26-12 
+mertrixserver(kubernative monitoring tool) == cloudwatch
+datadog is most used monitoring tool
+
+wget componets.yaml
+ wget https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl get deployments -n kube-system
+kubectl delete deploy -n kubectl-system
+components.yamal 
+- --kubectl-insecure-tls
+- --authorization-always-allow-paths=/livez,/readyz
+
+
+kubectl delete deploy metrics-server -n kube-system
+kubectl get pods -n kube-system
+
+kubectl edit deployment mertics-server -n kube-system
+i to inset text in file :wq to  write and quite
+
+ngpod.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployment
+spec:
+  replicas: 1
+  strategy:
+     type: RollingUpdate
+     rollingUpdate:
+          maxSurge: 2
+          maxUnavailable: 0
+  selector:
+     matchlabels:
+          env: dev
+  template:
+        metadata:
+            labels:
+                env: dev
+        spec:
+          containers:
+              - name: ngcontnew
+                image: nginx
+                ports:
+                  - containerPort: 80
+                resources:
+                   requests:
+                     cpu: "100m"
+                   limits:
+                     cpu: "500m"
+
+kubectl apply -f ngpod.yml
+kubectl get pods
+
+nano hpawala.yml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+   name: nghpauto
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: DEployment
+    name: mydeploument
+  minReplicas: 2
+  maxReplicas: 3
+  mertrcis:
+    - type: Resource
+      resource:
+          name: cpu
+          target:
+             type: Utilization
+             averageUtilization: 20
+
+
+kubectl apply -f hpwala.yml
+kubrctl get hpa 
+kubectl run -it mypod --image=busybox -- /bin/bash
+
+kubectl run -it tupod --image=busybox -- /bin/sh -c "while true: do wget -q -O- http://(ipfopod); done"
+
