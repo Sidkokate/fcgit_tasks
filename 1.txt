@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 main hoo giyan ahi aap
 main hoo fknbsdgnkjs ngbk
 =======
 main hoo giyan
 mainhoo khalnayak
 >>>>>>> 1f956d9712a6fb6f868ff28dd83bd1c8141eea05
+=======
+main hoo giyan
+>>>>>>> parent of 7439ebf (2-new-commit)
